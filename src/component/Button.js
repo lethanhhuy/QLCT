@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 
 
-
 export default class Button extends React.PureComponent {
 
   constructor(props) {
@@ -24,7 +23,6 @@ export default class Button extends React.PureComponent {
     super(props);
 
   }
-
 
 
  onPress=()=>{

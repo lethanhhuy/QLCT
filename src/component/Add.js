@@ -1,28 +1,22 @@
-'use strict'
-import React,{Component} from 'react';
-import{
-  AppRegistry,
+'use strict';
+import React, { Component } from 'react';
+import {
   StyleSheet,
   Dimensions,
-  ScrollView,
   Text,
   Image,
   View,
-  TextInput,
   TouchableOpacity,
   AsyncStorage,
   Picker,
-  Item,
-}from 'react-native';
-
-import {Button} from 'react-native-elements';
+} from 'react-native';
 import Data from './Data.js';
-import Firebase from 'QLCT/src/component/Firebase.js';
-import firebase from 'firebase';
-import Date from 'QLCT/src/component/Date.js'
-import InputButton from './InputButton.js'
+//import Firebase from './././Firebase.js';
+//import firebase from 'firebase';
+import Date from './Date.js';
+import InputButton from './InputButton.js';
 
-const window=Dimensions.get('window');
+const window = Dimensions.get('window');
 
 var chonvi;
 

@@ -25,31 +25,50 @@ export default class CateAdd extends Component {
   state = {
     images: [
       {
-        title: 'Tiền Thưởng',
-        img: require('QLCT/images/thunhap/TienThuong.png')
+        title: 'Ăn Uống',
+        img: require('QLCT/images/theloai/Food-96.png')
       }, {
-        title: 'Tiền Lương',
-        img: require('QLCT/images/thunhap/TienLuong-96.png')
+        title: 'Mua Sắm',
+        img: require('QLCT/images/theloai/Shopping-96.png')
       }, {
-        title: 'Tiền Lãi',
-        img: require('QLCT/images/thunhap/TienLai-96.png')
+        title: 'Gia Đình',
+        img: require('QLCT/images/theloai/Home-96.png')
       }, {
-        title: 'Được Tặng',
-        img: require('QLCT/images/thunhap/DuocTang.png')
+        title: 'Di Chuyển',
+        img: require('QLCT/images/theloai/Shuttle-96.png')
       }, {
-        title: 'Bán Đồ',
-        img: require('QLCT/images/thunhap/BanDo.png')
+        title: 'Giải Trí',
+        img: require('QLCT/images/theloai/Mosaic-96.png')
       }, {
-        title: 'Khác',
-        img: require('QLCT/images/thunhap/Khac.png')
+        title: 'Du Lịch',
+        img: require('QLCT/images/theloai/Airplane-96.png')
+      }, {
+        title: 'Hóa Đơn',
+        img: require('QLCT/images/theloai/Bitcoin-96.png')
+      }, {
+        title: 'Đầu Tư',
+        img: require('QLCT/images/theloai/Invest-96.png')
+      }, {
+        title: 'Sức Khỏe',
+        img: require('QLCT/images/theloai/Health-96.png')
       },
+      {
+        title: 'Khác',
+        img: require('QLCT/images/theloai/Money-96.png')
+      }
     ],
     imagesReference: [],
-    text: ''
+    text: '',
   }
 
   componentDidMount() {
     this.setState({imagesReference: this.state.images});
+  }
+
+  saveImg(){
+        return(
+          Data.SetImg(this.state.images)
+        )
   }
 
   search(text) {
@@ -72,7 +91,7 @@ export default class CateAdd extends Component {
   render() {
     let images = this.state.images.map((val, key) => {
       return <View key={key} style={styles.thumb} >
-        <TouchableOpacity onPress={this.props.clickSub}>
+        <TouchableOpacity onPress={this.saveImg(),this.props.clickSub} >
           <ImageEl imgsource={val.img} textsource={val.title} />
       </TouchableOpacity>
       </View>
@@ -94,7 +113,7 @@ export default class CateAdd extends Component {
                 width: 30
               }}/>
             </TouchableOpacity>
-            <Text style={styles.label}>Thu Nhập</Text>
+            <Text style={styles.label}>Chi Tiêu</Text>
             <Button title='Tìm Kiếm' fontWeight='600' color='#42729B' backgroundColor='#00bcd4' onPress= {() => this.searchHeader.show()}/>
           </View>
           <SearchHeader ref={(searchHeader) => {

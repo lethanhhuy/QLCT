@@ -1,17 +1,8 @@
 
- 'use strict'
+ 'use strict';
 
- import React,{Component} from 'react';
- import SideMenu from 'react-native-side-menu';
- import Drawer from 'react-native-drawer';
- import Menu from 'QLCT/src/component/Menu.js';
- import ActionButton from 'react-native-circular-action-menu';
-  import Login from 'QLCT/src/component/Login.js';
- import {Icon} from 'react-native-elements'
-import Date from 'QLCT/src/component/Date.js'
-const DEVICE_WIDTH = Dimensions.get(`window`).width;
+ import React, { Component } from 'react';
  import {
-   AppRegistry,
    StyleSheet,
    Dimensions,
    Text,
@@ -19,69 +10,70 @@ const DEVICE_WIDTH = Dimensions.get(`window`).width;
    TouchableOpacity,
    View,
    AsyncStorage,
-   Navigator,
    StatusBar,
    Picker,
-   Item
+   ScrollView,
  } from 'react-native';
+ import ActionButton from 'react-native-circular-action-menu';
+ import Drawer from 'react-native-drawer';
+ import Menu from './././Menu.js';
+ //import Login from './././Login.js';
+ import Date from './././Date.js';
+ import Data from './Data.js';
 
-import Intro from './Intro.js'
-import Data from './Data.js';
+ const DEVICE_WIDTH = Dimensions.get('window').width;
 
-var text,ql,chonvi;
+var text,
+ql,
+chonvi;
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
-    chonvi=['Cash','B','C'];
-    this.state={
-      doc:'',
+    chonvi = ['Cash', 'B', 'C'];
+    this.state = {
+      doc: '',
 
-    }
+    };
   }
-  /*componentWillMount(){
-    Data.Set(0,null)
-    text=Data.Get()
-  }*/
+  componentWillMount() {
+    Data.Set(0, null);
+    text = Data.Get();
+  }
 
- Maps(){
+ Maps() {
     ql = Data.GetMap();
   }
 
-save = async()=>{
-  try{
-    await AsyncStorage.setItem('@key',text[0].money);
-    console.log("SAVE OK!!!!!");
-  }
-
-  catch(e){
-    console.log(e)
+save = async() => {
+  try {
+    await AsyncStorage.setItem('@key', text[0].money);
+    console.log('SAVE OK!!!!!');
+  } catch (e) {
+    console.log(e);
   }
 }
 
-get = async()=>{
-  try{
-    var v = await AsyncStorage.getItem('@key');
-
+get = async() => {
+  try {
+    const v = await AsyncStorage.getItem('@key');
     console.log(v);
-  }
-
-  catch(e){
+  } catch (e) {
     console.log(e)
   }
 }
 
   closeControlPanel = () => {
-    this._drawer.close()
+    this.drawer.close()
   };
   openControlPanel = () => {
-    this._drawer.open()
+    this.drawer.open()
   };
 
-  renderItem(){
-    var items=[];
-    for (let item of chonvi){
-       items.push(<Picker.Item key={item} label={item} value={item}/>)
+  renderItem() {
+    const items = [];
+    for (let item of chonvi) {
+       items.push(<Picker.Item key={item} label={item} value={item} />)
     }
     return items
   }
@@ -94,37 +86,39 @@ get = async()=>{
 
       <Drawer
         type="overlay"
-        tapToClose={true}
-        ref={(ref)=>this._drawer=ref}
-        style={{shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3}}
-        content={<Menu navigator={this.props.navigator}/>}
-         openDrawerOffset={0.2}
+        tapToClose
+        ref={(ref) => this.drawer = ref}
+        style={{ shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 }}
+        content={<Menu navigator={this.props.navigator} />}
+         openDrawerOffset={0.4}
          panCloseMask={0.2}
                 closedDrawerOffset={-3}
                 styles={{
-                    drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
-                    main: {paddingLeft: 3}
+                    drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
+                    main: { paddingLeft: 3 }
                 }}
                 tweenHandler={(ratio) => ({
-                    main: { opacity:(2-ratio)/2 }
-                })}>
+                    main: { opacity: (2 - ratio) / 2 }
+                })} >
 
-          <View style={{flex:1}}>
-            <StatusBar hidden={true}/>
-             <StatusBar barStyle = 'light-content' />
-             <View style = { styles.status }/>
+          <View style={{ flex: 1 }}>
+            <StatusBar hidden />
+             <StatusBar barStyle='light-content' />
+             <View style={styles.status} />
              <View style={_styles._f0}>
                <View style={_styles._f1}>
                  <Button style={_styles.actionButtonIcon} onPress={() => this.openControlPanel()}>
                    <Image
-                     source={require('QLCT/images/ic_menu_white_36dp.png')} />
+                     source={require('QLCT/images/ic_menu_white_36dp.png')}
+                   />
                  </Button>
-                 <Text style={_styles._top}>Tổng Quan</Text>
-
+                 <Text style={_styles.top}>Tổng Quan</Text>
                 </View>
                {/*<View style={{justifyContent:'center', alignItems:'center'}}>
                   <TouchableOpacity onPress={this.props.clickDN}>
-                    <View style={{justifyContent:'center',alignItems:'center',height:50, width:100, borderRadius:15, backgroundColor:'blue',marginTop:5}}>
+                    <View
+                    style={{justifyContent:'center',alignItems:'center',height:50, width:100, borderRadius:15, backgroundColor:'blue',marginTop:5}}
+                    >
                           <Text style={{color:'white'}}>Đăng nhập</Text>
                     </View>
                   </TouchableOpacity>
@@ -135,46 +129,55 @@ get = async()=>{
                      </View>
                    </TouchableOpacity>
                  </View>*/}
-                <View style={{marginTop:10,alignItems:'center'}}>
-                    <Date/>
-                    <Picker style={{width:100,alignItems:'center'}} selectedValue={this.state.selected}
-                        onValueChange={(value) => this.setState({selected: value})}>
+                <View style={{ marginTop: 10, alignItems: 'center' }}>
+                    <Date />
+                    <Picker
+                      style={{ width:100, alignItems: 'center' }}
+                      selectedValue={this.state.selected}
+                        onValueChange={(value) => this.setState({ selected: value })} >
                           {this.renderItem()}
                     </Picker>
-                </View>
-                <View  style={{borderWidth:5,marginTop:100,borderColor:'grey'}} />
-              <View  style={{flex:1}}>
-                <View>
 
-                    {ql.map(function(o,i){
-                      return(
-                        <TouchableOpacity key={i} >
-                          <View>
-                              <Text style={{fontSize:17, color:"black"}}>
-                                {o.money}
+                </View>
+                <View style={styles.thumb}>
+                  <Text style={{ fontSize: 15 }} >
+                    Tổng tiền :
+                  </Text>
+                </View>
+                <View >
+                    {ql.map(function(o,i) {
+                      return (
+                          <ScrollView key={i} >
+                              <Text style={{ fontSize: 17, color: '#249991', textAlign: 'center' }}>
                                 {o.date}
-                                {o.loai}
-                                {o.hinh}
+                                {o.money}
                               </Text>
-                          </View>
-                        </TouchableOpacity>
+                              <View>
+                                {o.hinh}
+                              </View>
+
+                          </ScrollView>
                       );
                     })}
                   </View>
-                  {(()=>{this.save(),this.get()})()}
+                  {(() => { this.save(), this.get() })()}
                 {/*<Text style={{fontSize:20,marginTop:150}}>
                    {text[0].money}
                 </Text>*/}
-              </View>
+
 
                     <ActionButton buttonColor='rgba(231,76,60,1)'>
-                      <ActionButton.Item buttonColor='#9b59b6' onPress= {this.props.clickAdd}>
-                          <Text style={{fontSize:20,justifyContent:'center',alignItems:'center'}}>
+                      <ActionButton.Item buttonColor='#9b59b6' onPress={this.props.clickCateAdd}>
+                          <Text
+                            style={{ fontSize: 20, justifyContent: 'center', alignItems: 'center' }}
+                            >
                             +
                           </Text>
                       </ActionButton.Item>
-                      <ActionButton.Item buttonColor='#3498db' t onPress={this.props.clickSub}>
-                        <Text style={{fontSize:20,justifyContent:'center',alignItems:'center'}}>
+                      <ActionButton.Item buttonColor='#3498db' t onPress={this.props.clickCateSub}>
+                        <Text
+                          style={{ fontSize: 20, justifyContent: 'center', alignItems: 'center' }}
+                          >
                           -
                         </Text>
                       </ActionButton.Item>
@@ -190,28 +193,24 @@ get = async()=>{
 
 }
 
-
-
 class Button extends Component{
-  handlePress(e){
-    if(this.props.onPress){
+  handlePress(e) {
+    if (this.props.onPress) {
       this.props.onPress(e);
     }
   }
-  render(){
-    return(
+  render() {
+    return (
       <TouchableOpacity
         onPress={this.handlePress.bind(this)}
-        style={this.props.style}>
+        style={this.props.style}
+        >
         <Text>{this.props.children}</Text>
       </TouchableOpacity>
     );
   }
 }
-const drawerStyles = {
-  drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
-  main: {paddingLeft: 3},
-}
+
 
 const _styles = StyleSheet.create(
   {
@@ -219,32 +218,32 @@ const _styles = StyleSheet.create(
        width: 50,
        height: 50,
    },
-    _f0:{
-      backgroundColor: '#f8fdff',
-      flex:1,
+    _f0: {
+      backgroundColor: '#ECF0F1',
+      flex: 1,
     },
-    _f1:{
-      flexDirection:'row',
-      backgroundColor:'rgb(231, 76, 60)',
-      height:40,
+    _f1: {
+      flexDirection: 'row',
+      backgroundColor: 'rgb(231, 76, 60)',
+      height: 40,
 
     },
-    _top:{
+    top: {
       color: 'white',
-      backgroundColor:'rgb(231, 76, 60)',
+      backgroundColor: 'rgb(231, 76, 60)',
       paddingTop: 4,
-      paddingLeft:25,
-      fontWeight:'bold',
-      fontSize:20,
+      paddingLeft: 25,
+      fontWeight: 'bold',
+      fontSize: 20,
     },
     actionButtonIcon: {
      paddingTop: 4,
     },
-    img:{
+    img: {
        paddingTop: 35,
        paddingLeft: 30,
-       width:10,
-       height:10,
+       width: 10,
+       height: 10,
      },
   }
 );
@@ -278,12 +277,20 @@ const styles = StyleSheet.create({
    height: 22,
    color: 'white',
  },
- money:{
+ money: {
    //alignItems: 'center',
-   marginLeft:10,
-   justifyContent:'center',
+   marginLeft: 10,
+   justifyContent: 'center',
    //borderBottomWidth:0.5,
    //borderColor:'green'
  },
-
+ thumb: {
+  margin: 5,
+  padding: 5,
+  height: 70,
+  backgroundColor: '#FEFEFE',
+  borderRadius: 3,
+  minWidth: 96,
+  flexDirection: 'row'
+},
 });

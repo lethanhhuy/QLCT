@@ -1,6 +1,6 @@
 'use strict'
-import React,{Component} from 'react';
-import{
+import React, { Component } from 'react';
+import {
   AppRegistry,
   StyleSheet,
   Dimensions,
@@ -11,20 +11,20 @@ import{
   Picker,
   AsyncStorage,
   StatusBar
-}from 'react-native';
+} from 'react-native';
 import Button from './Button.js';
-import Date from 'QLCT/src/component/Date.js'
+import Date from './././Date.js';
 import Data from './Data.js';
 var moeny_total = 0;
-const DEVICE_WIDTH = Dimensions.get(`window`).width;
+const DEVICE_WIDTH = Dimensions.get('window').width;
 
-var chonvi;
+var chonvi,al;
 export default class Sub extends Component{
   constructor(props) {
     super(props);
-    this.state={
-      result:0,
-      formula:" ",
+    this.state= {
+      result: 0,
+      formula: '',
     }
   this.onPressOperatorOrNumber = this.onPressOperatorOrNumber.bind(this)
   }
@@ -73,14 +73,21 @@ export default class Sub extends Component{
     }
   }
   saveMap(){
-    return(
-      Data.SetMap(this.state.result)
-    )
+      if (this.state.result != 0) {
+        return(
+          Data.SetMap(this.state.result)
+          )
+      }
   }
-  render() {
+  Mapx() {
+     al = Data.GetImg();
+   }
 
+
+  render() {
+    this.Mapx();
    return (
-       <View style={{flex:1}}>
+       <View style={{flex:1,backgroundColor:'#F0F1F5'}}>
          <StatusBar barStyle = 'light-content' />
          <View style = { styles.status }/>
          <View style={styles._f0}>
@@ -94,7 +101,7 @@ export default class Sub extends Component{
              marginLeft:135,
              fontWeight:'bold',
              fontSize:20,}}>
-               Chi Tiêu
+               Chi Tiết
              </Text>
              <TouchableOpacity style={styles.actionButtonIcon} onPress={()=>{/*this.saveMoney(),*/this.saveMap(),this.state.result==0?alert('Chưa nhập tiền'):this.props.gosave()}}>
                  <Image source={require('QLCT/images/ic_done_white_24dp.png')}  style={{height:30,width:30,marginTop:3}}/>
@@ -102,14 +109,28 @@ export default class Sub extends Component{
            </View>
          </View>
          <View style={styles.backGround}>
-           <View style={{marginTop:10,alignItems:'center',flex:2,flexDirection:'column'}}>
+           <View style={{marginTop:10,alignItems:'center'}}>
                <Date/>
-               <TouchableOpacity style={{marginTop:5,width:100,borderRadius:5,borderColor:'#F2784B',borderWidth:1.5,alignItems:'center'}} onPress={this.props.clickCateAdd}>
-                 <Text style={{fontSize:15,color:'#F2784B'}}>
-                   Danh Mục
-                 </Text>
-               </TouchableOpacity>
            </View>
+           <View style={styles.thumb}>
+              {/*<Image source={require('QLCT/images/lehuy.png')} style={{width:80,height:80}}/>
+              <Text style={{fontSize:20,}}>
+                abc45656456489789
+              </Text>*/}
+              <View>
+                {al.map(function(o,i) {
+                  <View key={i}>
+                    <View>
+                      {o.hinh}
+                    </View>
+                    <Text>
+                      {o.text}
+                    </Text>
+                  </View>
+                })}
+              </View>
+
+          </View>
          </View>
          <View style={{backgroundColor:'#B0BEC5',height:50}}>
            <View style={{flex:3,justifyContent:'center'}}>
@@ -121,9 +142,9 @@ export default class Sub extends Component{
                </Text>
            </View>
          </View>
-         <View style={{flex:4,flexDirection:'column',justifyContent:'flex-end'}}>
-           <View style={{flex:4,backgroundColor:'#5F9EA0'}}>
-             <View style={{flex:4,alignItems:'center',flexDirection:'row'}}>
+         <View style={{flex:2,flexDirection:'column',justifyContent:'flex-end'}}>
+           <View style={{flex:1.5,backgroundColor:'#5F9EA0'}}>
+             <View style={{flex:2,alignItems:'center',flexDirection:'row'}}>
                  <Text style={styles.formulaText}>
                    {this.state.formula}
                  </Text>
@@ -169,6 +190,16 @@ export default class Sub extends Component{
 
 }
 const styles =StyleSheet.create({
+  thumb: {
+   margin: 5,
+   padding: 5,
+   height: 70,
+   backgroundColor: '#F0F1F5',
+   borderRadius: 3,
+   minWidth: 96,
+   flexDirection: 'row',
+   alignItems:'center'
+ },
   status: {
       zIndex: 10,
       elevation: 2,
@@ -184,18 +215,18 @@ const styles =StyleSheet.create({
   ACbutton:{
     flex:3,
     backgroundColor:'#26C6DA',
-    height:50,
+    height:35,
   },
 
   buttonNumber:{
     flex:1,
-    height:50,
+    height:35,
 
   },
 
   operation:{
     backgroundColor:'#D3D3D3',
-    height:50,
+    height:35,
     flex:1,
 
   },
@@ -238,7 +269,7 @@ const styles =StyleSheet.create({
   equalButton:{
     backgroundColor:'#C8E6C9',
     flex:1,
-    height:50,
+    height:37,
   },
   _button:{borderWidth:1, borderColor:"#4db6ac", width:100, height: 75, padding:10, marginBottom:20, alignItems:"center", justifyContent:"center"},
   ai:{fontSize: 20,color: 'white',paddingLeft:25,paddingTop:4,fontWeight:'bold'},

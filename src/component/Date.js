@@ -4,9 +4,12 @@ import Data from './Data.js';
 export default class MyDatePicker extends Component {
   constructor(props){
     super(props)
-    this.state = {date:new Date()}
+    this.state = {
+      date:new Date(),
+    }
   }
-  saveDate(){
+
+    saveDate(){
     return(
       Data.SetMap(this.state.date)
     )
@@ -32,9 +35,10 @@ export default class MyDatePicker extends Component {
 
           },
           dateInput: {
-            borderColor:'orange',
+            backgroundColor: 'white',
+            borderColor: 'orange',
             marginLeft: 31,
-            borderRadius:5
+            borderRadius: 5
           }
           // ... You can check the source to find the other keys.
         }}
